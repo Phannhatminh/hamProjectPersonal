@@ -3,10 +3,10 @@ package edu.augustana;
 import java.io.IOException;
 import javafx.fxml.FXML;
 
-public class SecondaryController {
+public class HamUIController {
 
     @FXML
     private void switchToPrimary() throws IOException {
-        App.setRoot("primary");
+        App.setRoot("WelcomeScreen");
     }
 }
