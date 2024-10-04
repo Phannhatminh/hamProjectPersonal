@@ -1,15 +1,24 @@
 package edu.augustana;
 
 public interface HamRadioClientInterface {
-    //main method to start the client that to be called in a main client program with the GUI
-    void start();
+    // connect to server
+    void connectToServer(String serverUri) throws Exception;
 
-    //configuration methods to set configuration for the ham radio
-    void tunningFrequency(double frequency);
-    void filterBandWidth();
-    void setTransmitFrequency(double frequency);
+    // Send CW as byte buffer
+    void sendCWSignal(String morseCode);
 
-    //helper methods to transmit and handle recieve signals
-    void transmitSignal(byte[] transmitSignals);
-    void onRecievingSignals(byte[] recievedSignals);
+    // Recieve and handle signals from server
+    void recieveAndProcessSignal(byte[] signal);
+
+    // set the frequency
+    void setRecievingFrequency(double freq);
+
+    // set the bandwidth
+    void filerBandWidth(double bandWidth);
+
+    // set transmitting frequency
+    void setTransmitFrequency(double freq);
+
+    // close WebSocket connection
+    void closeConnection();
 }
