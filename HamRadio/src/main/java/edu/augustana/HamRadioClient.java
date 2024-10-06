@@ -1,5 +1,4 @@
 package edu.augustana;
-import java.io.DataInput;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -7,30 +6,30 @@ import java.net.Socket;
 
 public class HamRadioClient implements HamRadioClientInterface {
     private Socket socket;
-    private DataInputStream in;
-    private DataOutputStream out;
+    private DataInputStream inputHandler;
+    private DataOutputStream outputHandler;
     private double transmitFrequency;
     private double receiveFrequency;
     private double bandwidth;
 
     public void connectToServer(String serverIp,int serverPort) throws IOException {
         this.socket = new Socket(serverIp, serverPort);
-        this.in = new DataInputStream(socket.getInputStream());
-        this.out = new DataOutputStream(socket.getOutputStream());
+        this.inputHandler = new DataInputStream(socket.getInputStream());
+        this.outputHandler = new DataOutputStream(socket.getOutputStream());
 
-        // Thread để nhận tín hiệu từ server
-        new Thread(new RecieveSignalThread()).start();
+        // Thread to receive signal from server
+        new Thread(new ReceiveSignalThread()).start();
     }
     
     //Thread to handle signals from server
-    class RecieveSignalThread implements Runnable {
+    class ReceiveSignalThread implements Runnable {
         @Override
         public void run() {
             try {
                 while (true) {
-                    int signalSize = in.readInt();
+                    int signalSize = inputHandler.readInt();
                     byte[] receivedSignal = new byte[signalSize];
-                    in.readFully(receivedSignal);
+                    inputHandler.readFully(receivedSignal);
                     receiveAndProcessSignal(receivedSignal);
                 }
             } catch (IOException e) {
@@ -42,8 +41,8 @@ public class HamRadioClient implements HamRadioClientInterface {
     //HamRadioClient code
     public void sendCWSignal(String morseCode) throws IOException {
         byte[] signal = parseMorseCodeToCW(morseCode);
-        out.writeInt(signal.length);
-        out.write(signal);
+        outputHandler.writeInt(signal.length);
+        outputHandler.write(signal);
     }
     
     public void receiveAndProcessSignal(byte[] signal) {
