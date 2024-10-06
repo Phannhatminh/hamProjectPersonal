@@ -10,10 +10,10 @@ public interface HamRadioClientInterface {
     void sendCWSignal(String morseCode) throws IOException;
 
     // Recieve and handle signals from server
-    void recieveAndProcessSignal(byte[] signal);
+    void receiveAndProcessSignal(byte[] signal);
 
     // set the frequency
-    void setRecievingFrequency(double freq);
+    void setReceivingFrequency(double freq);
 
     // set the bandwidth
     void filerBandWidth(double bandWidth);

@@ -10,7 +10,7 @@ public class HamRadioClient implements HamRadioClientInterface {
     private DataInputStream in;
     private DataOutputStream out;
     private double transmitFrequency;
-    private double recieveFrequency;
+    private double receiveFrequency;
     private double bandwidth;
 
     public void connectToServer(String serverIp,int serverPort) throws IOException {
@@ -21,7 +21,7 @@ public class HamRadioClient implements HamRadioClientInterface {
         // Thread để nhận tín hiệu từ server
         new Thread(new RecieveSignalThread()).start();
     }
-
+    
     //Thread to handle signals from server
     class RecieveSignalThread implements Runnable {
         @Override
@@ -29,9 +29,9 @@ public class HamRadioClient implements HamRadioClientInterface {
             try {
                 while (true) {
                     int signalSize = in.readInt();
-                    byte[] recievedSignal = new byte[signalSize];
-                    in.readFully(recievedSignal);
-                    recieveAndProcessSignal(recievedSignal);
+                    byte[] receivedSignal = new byte[signalSize];
+                    in.readFully(receivedSignal);
+                    receiveAndProcessSignal(receivedSignal);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -40,36 +40,30 @@ public class HamRadioClient implements HamRadioClientInterface {
     }
 
     //HamRadioClient code
-    @Override
     public void sendCWSignal(String morseCode) throws IOException {
         byte[] signal = parseMorseCodeToCW(morseCode);
         out.writeInt(signal.length);
         out.write(signal);
     }
-
-    @Override
-    public void recieveAndProcessSignal(byte[] signal) {
+    
+    public void receiveAndProcessSignal(byte[] signal) {
         //parseFromCWSignalToMorse
         //code to filering and shit...
         //play sound that morse
     }
 
-    @Override
-    public void setRecievingFrequency(double freq) {
-        this.recieveFrequency = freq;
+    public void setReceivingFrequency(double freq) {
+        this.receiveFrequency = freq;
     }
-
-    @Override
+    
     public void filerBandWidth(double bandWidth) {
         this.bandwidth = bandWidth;
     }
-
-    @Override
+    
     public void setTransmitFrequency(double freq) {
         this.transmitFrequency = freq;
     }
-
-    @Override
+    
     public void closeConnection() {
 
     }
