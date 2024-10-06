@@ -21,7 +21,7 @@ public class HamRadioClient implements HamRadioClientInterface {
     @OnMessage
     public void onBinaryMessage(byte[] message) {
         System.out.println("Recieve byte[] type message");
-        recieveAndProcessSignal(message);
+        receiveAndProcessSignal(message);
     }
 
     @OnOpen
@@ -53,13 +53,13 @@ public class HamRadioClient implements HamRadioClientInterface {
     }
 
     @Override
-    public void recieveAndProcessSignal(byte[] signal) {
+    public void receiveAndProcessSignal(byte[] signal) {
         //parseFromCWSignalToMorse
         //play sound that morse
     }
 
     @Override
-    public void setRecievingFrequency(double freq) {
+    public void setReceivingFrequency(double freq) {
         this.recieveFrequency = freq;
     }
 
