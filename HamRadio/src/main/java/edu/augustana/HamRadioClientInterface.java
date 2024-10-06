@@ -1,11 +1,13 @@
 package edu.augustana;
 
+import java.io.IOException;
+
 public interface HamRadioClientInterface {
     // connect to server
-    void connectToServer(String serverUri) throws Exception;
+    void connectToServer(String serverIp, int serverPort) throws IOException;
 
     // Send CW as byte buffer
-    void sendCWSignal(String morseCode);
+    void sendCWSignal(String morseCode) throws IOException;
 
     // Recieve and handle signals from server
     void recieveAndProcessSignal(byte[] signal);

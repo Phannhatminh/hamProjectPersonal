@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ad517084-42b0-4f63-8336-f8fd7e9431df" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../helo/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../helo/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../helo/src/main/java/edu/augustana/App.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../helo/src/main/java/edu/augustana/PrimaryController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../helo/src/main/java/edu/augustana/SecondaryController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../helo/src/main/java/module-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../helo/src/main/resources/edu/augustana/primary.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../helo/src/main/resources/edu/augustana/secondary.fxml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="2n4l1qRO7pcd9BMgaAOwYclAyBA" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ad517084-42b0-4f63-8336-f8fd7e9431df" name="Changes" comment="" />
+      <created>1728240019670</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1728240019670</updated>
+    </task>
+    <servers />
+  </component>
+</project>

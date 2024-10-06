@@ -1,60 +1,56 @@
 package edu.augustana;
+import java.io.DataInput;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
 
-import javax.websocket.*;
-import java.net.URI;
-import java.nio.ByteBuffer;
-
-@ClientEndpoint
 public class HamRadioClient implements HamRadioClientInterface {
-    private Session session;
+    private Socket socket;
+    private DataInputStream in;
+    private DataOutputStream out;
     private double transmitFrequency;
     private double recieveFrequency;
     private double bandwidth;
 
-    @Override
-    public void connectToServer(String serverUri) throws Exception {
-        WebSocketContainer container = ContainerProvider.getWebSocketContainer();
-        container.connectToServer(this, new URI(serverUri));
+    public void connectToServer(String serverIp,int serverPort) throws IOException {
+        this.socket = new Socket(serverIp, serverPort);
+        this.in = new DataInputStream(socket.getInputStream());
+        this.out = new DataOutputStream(socket.getOutputStream());
+
+        // Thread để nhận tín hiệu từ server
+        new Thread(new RecieveSignalThread()).start();
     }
 
-    //server WebSocketAPI code
-    @OnMessage
-    public void onBinaryMessage(byte[] message) {
-        System.out.println("Recieve byte[] type message");
-        recieveAndProcessSignal(message);
-    }
-
-    @OnOpen
-    public void onOpen(Session session) {
-        System.out.println("Connection success");
-        this.session = session;
-    }
-
-    // onError
-    @OnError
-    public void onError(Session session, Throwable throwable) {
-        throwable.printStackTrace();
+    //Thread to handle signals from server
+    class RecieveSignalThread implements Runnable {
+        @Override
+        public void run() {
+            try {
+                while (true) {
+                    int signalSize = in.readInt();
+                    byte[] recievedSignal = new byte[signalSize];
+                    in.readFully(recievedSignal);
+                    recieveAndProcessSignal(recievedSignal);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     //HamRadioClient code
     @Override
-    public void sendCWSignal(String morseCode) {
+    public void sendCWSignal(String morseCode) throws IOException {
         byte[] signal = parseMorseCodeToCW(morseCode);
-        try {
-            if (session != null && session.isOpen()) {
-                session.getBasicRemote().sendBinary(ByteBuffer.wrap(signal));
-                System.out.println("Signal is sent");
-            } else {
-                System.out.println("Socket connection is not openned yet");
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        out.writeInt(signal.length);
+        out.write(signal);
     }
 
     @Override
     public void recieveAndProcessSignal(byte[] signal) {
         //parseFromCWSignalToMorse
+        //code to filering and shit...
         //play sound that morse
     }
 
@@ -75,13 +71,7 @@ public class HamRadioClient implements HamRadioClientInterface {
 
     @Override
     public void closeConnection() {
-        if (session != null && session.isOpen()) {
-            try {
-                session.close();
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
-        }
+
     }
 
     //helper methods:
