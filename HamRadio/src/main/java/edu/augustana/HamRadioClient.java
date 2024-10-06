@@ -90,3 +90,8 @@ public class HamRadioClient implements HamRadioClientInterface {
         return byteBuffer;
     }
 }
+
+//next:
+//signal processing code (tmr)
+//WebSocket API client-server config (sat)
+//test (sun)
